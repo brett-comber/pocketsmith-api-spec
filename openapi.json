@@ -1849,9 +1849,24 @@
             "description": "Choose a particular page of the results.",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
             },
             "example": 3
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of records to return in a single response.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 30,
+              "minimum": 10,
+              "maximum": 100
+            },
+            "example": 30
           }
         ],
         "responses": {
@@ -1948,9 +1963,24 @@
             "description": "Choose a particular page of the results.",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
             },
             "example": 3
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of records to return in a single response.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 30,
+              "minimum": 10,
+              "maximum": 100
+            },
+            "example": 30
           }
         ],
         "responses": {
@@ -2042,14 +2072,39 @@
             "example": "debit"
           },
           {
+            "name": "search",
+            "in": "query",
+            "description": "Only return transactions matching these search terms",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "debit"
+          },
+          {
             "name": "page",
             "in": "query",
             "description": "Choose a particular page of the results.",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
             },
             "example": 3
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of records to return in a single response.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 30,
+              "minimum": 10,
+              "maximum": 100
+            },
+            "example": 30
           }
         ],
         "responses": {
