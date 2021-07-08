@@ -2441,6 +2441,4 @@ paths:
           content:
             application/json:
               schema:
-                items:
                   $ref: '#/components/schemas/BudgetAnalysisPackage'
-                type: array
