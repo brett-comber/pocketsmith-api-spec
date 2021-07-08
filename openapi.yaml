@@ -416,7 +416,7 @@ components:
           type: number
           description: The percentage of the budget that has been used in the period.
           example: 70.5
-        refund_amound:
+        refund_amount:
           type: number
           description: This attribute tracks the amount that has been refunded or
             deducted to the actual amount. When a category is set to "always expense",
