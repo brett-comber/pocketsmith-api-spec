@@ -609,6 +609,11 @@
             "description": "The end date of the budget analysis.",
             "example": "2016-11-30"
           },
+          "currency_code": {
+            "type": "string",
+            "description": "The currency code for this BudgetAnalysis.",
+            "example": "NZD"
+          },
           "total_actual_amount": {
             "type": "number",
             "description": "The total actual (transactions) amount across all periods.",
@@ -660,6 +665,11 @@
             "type": "string",
             "description": "The end date of the period.",
             "example": "2016-11-30"
+          },
+          "currency_code": {
+            "type": "string",
+            "description": "The currency code for amounts in this Period.",
+            "example": "NZD"
           },
           "actual_amount": {
             "type": "number",

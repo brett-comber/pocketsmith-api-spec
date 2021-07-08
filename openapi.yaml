@@ -240,6 +240,10 @@ components:
           format: date
           description: The end date of the budget analysis.
           example: '2016-11-30'
+        currency_code:
+          type: string
+          description: The currency code for this BudgetAnalysis.
+          example: 'NZD'         
         periods:
           type: array
           description: The period analyses that this budget analysis comprises.
@@ -399,6 +403,10 @@ components:
           format: date
           description: The end date of the period.
           example: '2016-11-30'
+        currency_code:
+          type: string
+          description: The currency code for amounts in this Period.
+          example: 'NZD'         
         forecast_amount:
           type: number
           description: The sum of all forecast sources (budget events) in the period,
