@@ -240,6 +240,10 @@ components:
           format: date
           description: The end date of the budget analysis.
           example: '2016-11-30'
+        currency_code:
+          type: string
+          description: The currency code for this BudgetAnalysis.
+          example: 'NZD'         
         periods:
           type: array
           description: The period analyses that this budget analysis comprises.
@@ -399,6 +403,10 @@ components:
           format: date
           description: The end date of the period.
           example: '2016-11-30'
+        currency_code:
+          type: string
+          description: The currency code for amounts in this Period.
+          example: 'NZD'         
         forecast_amount:
           type: number
           description: The sum of all forecast sources (budget events) in the period,
@@ -416,7 +424,7 @@ components:
           type: number
           description: The percentage of the budget that has been used in the period.
           example: 70.5
-        refund_amound:
+        refund_amount:
           type: number
           description: This attribute tracks the amount that has been refunded or
             deducted to the actual amount. When a category is set to "always expense",
@@ -2433,6 +2441,4 @@ paths:
           content:
             application/json:
               schema:
-                items:
                   $ref: '#/components/schemas/BudgetAnalysisPackage'
-                type: array
