@@ -8,8 +8,6 @@
   $ref: ./categories/_id_.yaml
 /categories/{id}/category_rules:
   $ref: ./categories/_id_/category_rules.yaml
-/data_feeds_connections:
-  $ref: ./data_feeds_connections.yaml
 /data_feeds_connections/{id}:
   $ref: ./data_feeds_connections/_id_.yaml
 /data_feeds_connections/{id}/data_feeds_accounts:
@@ -44,6 +42,8 @@
   $ref: ./users/_id_/categories.yaml
 /users/{id}/category_rules:
   $ref: ./users/_id_/category_rules.yaml
+/users/{id}/data_feeds_connections:
+  $ref: ./users/_id_/data_feeds_connections.yaml
 /users/{id}/institutions:
   $ref: ./users/_id_/institutions.yaml
 /users/{id}/transaction_accounts:

@@ -1466,22 +1466,6 @@ paths:
         '422':
           $ref: '#/components/responses/422'
 
-  /data_feeds_connections:
-    get:
-      operationId: getDataConnections
-      summary: Get the data connections (bank feeds) of the authenticated user
-      tags:
-        - Data Connections
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DataConnection'
-
   /data_feeds_connections/{id}:
     get:
       operationId: getDataConnection
@@ -2628,6 +2612,30 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
+
+  /users/{id}/data_feeds_connections:
+    get:
+      operationId: listDataConnections
+      summary: List the data connections (bank feeds) of the user
+      tags:
+        - Data Connections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the user
+          schema:
+            type: integer
+          example: 42
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataConnection'
 
   /users/{id}/institutions:
     post:
