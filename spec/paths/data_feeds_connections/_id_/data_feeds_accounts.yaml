@@ -1,0 +1,26 @@
+get:
+  operationId: getDataConnectionAccounts
+  summary: Get the accounts associated with the specified data connections (bank feeds)
+  tags:
+    - Data Connections
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the data connection.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Account'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

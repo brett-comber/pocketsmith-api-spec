@@ -1,0 +1,34 @@
+get:
+  operationId: listBudgets
+  summary: List budget for user
+  description: Lists the user's budget, consisting of one or more budget analysis
+    packages, one per category. Akin to the list on the Budget page in PocketSmith.
+  tags:
+    - Budgeting
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: integer
+      example: 42
+    - name: roll_up
+      in: query
+      required: false
+      description: Whether parent categories should have their children rolled
+        up into them. When used, the children will still appear in the collection
+        on their own, but their actual and forecast figures will be rolled up
+        to the root parent.
+      schema:
+        type: boolean
+      example: true
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/BudgetAnalysisPackage'
+            type: array

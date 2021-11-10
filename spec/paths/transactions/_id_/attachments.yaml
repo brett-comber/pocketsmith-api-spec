@@ -1,0 +1,65 @@
+post:
+  operationId: assignTransactionAttachment
+  summary: Assigns attachment to transaction
+  description: Assigns an attachment to the transaction by their ID.
+  tags:
+    - Attachments
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            attachment_id:
+              type: integer
+              description: The unique identifier of the attachment.
+              example: 1438154
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Attachment'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+get:
+  operationId: listTransactionAttachments
+  summary: List attachments in transaction
+  description: Lists attachments belonging to a transaction by their ID.
+  tags:
+    - Attachments
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Attachment'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

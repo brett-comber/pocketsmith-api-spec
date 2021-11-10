@@ -1,0 +1,30 @@
+delete:
+  operationId: unassignTransactionAttachment
+  summary: Unassigns attachment in transaction
+  description: Unassigns a particular attachment by its ID from the transaction
+    ID. This does not delete the attachment, it only removes its association from
+    the transaction.
+  tags:
+    - Attachments
+  parameters:
+    - name: transaction_id
+      in: path
+      required: true
+      description: The unique identifier of the transaction.
+      schema:
+        type: integer
+      example: 42
+    - name: attachment_id
+      in: path
+      required: true
+      description: The unique identifier of the attachment.
+      schema:
+        type: integer
+      example: 1438154
+  responses:
+    '204':
+      description: Success
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

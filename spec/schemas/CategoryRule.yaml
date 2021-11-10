@@ -1,0 +1,22 @@
+type: object
+properties:
+  category:
+    $ref: '#/components/schemas/Category'
+  created_at:
+    type: string
+    format: date-time
+    description: When the category rule was created.
+    example: '2019-07-09T10:06:02Z'
+  id:
+    type: integer
+    description: The unique identifier of the category rule.
+    example: 1438154
+  payee_matches:
+    type: string
+    description: The keyword/s to match the transactions payees.
+    example: Countdown
+  updated_at:
+    type: string
+    format: date-time
+    description: When the category rule was last updated.
+    example: '2019-07-09T10:06:02Z'

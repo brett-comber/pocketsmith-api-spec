@@ -1,0 +1,32 @@
+Account:
+  $ref: ./Account.yaml
+Attachment:
+  $ref: ./Attachment.yaml
+BudgetAnalysis:
+  $ref: ./BudgetAnalysis.yaml
+BudgetAnalysisPackage:
+  $ref: ./BudgetAnalysisPackage.yaml
+Category:
+  $ref: ./Category.yaml
+CategoryRule:
+  $ref: ./CategoryRule.yaml
+DataConnection:
+  $ref: ./DataConnection.yaml
+Error:
+  $ref: ./Error.yaml
+Form:
+  $ref: ./Form.yaml
+Institution:
+  $ref: ./Institution.yaml
+Period:
+  $ref: ./Period.yaml
+Provider:
+  $ref: ./Provider.yaml
+Scenario:
+  $ref: ./Scenario.yaml
+Transaction:
+  $ref: ./Transaction.yaml
+TransactionAccount:
+  $ref: ./TransactionAccount.yaml
+User:
+  $ref: ./User.yaml

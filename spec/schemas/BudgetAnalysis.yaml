@@ -1,0 +1,45 @@
+type: object
+properties:
+  average_actual_amount:
+    type: number
+    description: The average actual (transactions) amount across all periods.
+    example: -42.3
+  average_forecast_amount:
+    type: number
+    description: The average budgeted amount across all periods.
+    example: -60
+  end_date:
+    type: string
+    format: date
+    description: The end date of the budget analysis.
+    example: '2016-11-30'
+  currency_code:
+    type: string
+    description: The currency code for this BudgetAnalysis.
+    example: 'NZD'         
+  periods:
+    type: array
+    description: The period analyses that this budget analysis comprises.
+    items:
+      $ref: '#/components/schemas/Period'
+  start_date:
+    type: string
+    format: date
+    description: The start date of the budget analysis.
+    example: '2016-11-01'
+  total_actual_amount:
+    type: number
+    description: The total actual (transactions) amount across all periods.
+    example: -42.3
+  total_forecast_amount:
+    type: number
+    description: The total budgeted amount across all periods.
+    example: -60
+  total_over_by:
+    type: number
+    description: The total amount the budget was exceeded across all periods.
+    example: 0
+  total_under_by:
+    type: number
+    description: The total amount the budget was under by across all periods.
+    example: 17.7

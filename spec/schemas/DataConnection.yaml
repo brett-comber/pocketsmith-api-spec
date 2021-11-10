@@ -1,0 +1,120 @@
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the data connection
+    example: "42"
+  name:
+    type: string
+    nullable: true
+    description: User-defined nickname for the data connection
+  status:
+    type: string
+    description: Sync/auth status of the data connection
+    enum:
+      - synced
+      - unsynced
+      - unauthorised
+      - authorisation_failed
+      # XXX (zkanzler): am I missing any others?
+  status_changed_at:
+    type: string
+    format: date-time
+    description: When the data connection's status last changed
+  status_changed_at_hash:
+    type: string
+    description: MD5 hash of the status_changed_at field
+  error_detail:
+    type: string
+    nullable: true
+    # XXX (zkanzler): what kind of error does this describe?
+    description: '?'
+  user_interaction_likely:
+    type: boolean
+    # XXX (zkanzler): what type of user interaction does this refer to?
+    description: 'GUESSING: Whether syncing this data connection is likely to require user interaction'
+  categorisation:
+    type: boolean
+    description: Whether automatic categorisation of transactions is enabled
+  automatic_syncing:
+    type: boolean
+    description: Whether the data connection will automatically sync when logged in to PocketSmith
+  automatic_syncing_overridden:
+    type: boolean
+    # XXX (zkanzler): what does this mean?
+    description: 'UNKNOWN'
+  pending_transactions:
+    type: boolean
+    description: Whether to receive pending transactions from this data connection, if available
+  login_form:
+    nullable: true
+    allOf:
+      - $ref: '#/components/schemas/Form'
+  interactive_login_form:
+    nullable: true
+    allOf:
+      - $ref: '#/components/schemas/Form'
+  external_authorisation_url:
+    type: string
+    format: url
+    nullable: true
+    # XXX (zkanzler): what does this field describe?
+    description: UNKNOWN
+  external_syncing_url:
+    type: string
+    format: url
+    nullable: true
+    # XXX (zkanzler): what does this field describe?
+    description: UNKNOWN
+  last_successful_sync_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the data connection last synced successfully
+  next_sync_possible_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the data connection is next allowed to sync at
+  next_background_sync_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the data connection is scheduled to sync in the background next
+  accounts_updated_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the accounts tied to the data connection were last updated
+  soft_locked_until:
+    type: string
+    format: date-time
+    nullable: true
+    # XXX (zkanzler): what does this field describe?
+    description: UNKNOWN
+  user:
+    type: object
+    description: Abbreviated properties of the user owning the data connection
+    properties:
+      id:
+        type: string
+        format: integer
+      email:
+        type: string
+        format: email
+      salt_edge_partners_consented:
+        type: boolean
+        # XXX (zkanzler): what does this field describe?
+        description: UNKNOWN
+  provider:
+    $ref: '#/components/schemas/Provider'
+  created_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the data connection was created
+  updated_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the data connection was last updated

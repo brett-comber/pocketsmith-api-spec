@@ -1,0 +1,98 @@
+get:
+  operationId: getTransaction
+  summary: Get a transaction
+  description: Gets a transaction by its ID.
+  tags:
+    - Transactions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Transaction'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+put:
+  operationId: updateTransaction
+  summary: Update a transaction
+  description: Updates a transaction by its ID.
+  tags:
+    - Transactions
+  parameters:
+    - name: labels
+      in: query
+      required: false
+      description: A new set of labels for the transaction.
+      schema:
+        type: string
+        description: A new comma-separated set of labels for the transaction.
+      example: foo,bar,baz
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            amount:
+              type: number
+              description: A new amount for the transaction.
+              example: 225
+            category_id:
+              type: integer
+              description: The unique identifier of a new category for the transaction.
+              example: 42
+            cheque_number:
+              type: string
+              description: A new cheque number for the transaction.
+              example: '503113643691'
+            date:
+              type: string
+              description: A new date for the transaction.
+              example: '2018-02-27'
+            is_transfer:
+              type: boolean
+              description: Whether the transaction is a transfer or not.
+              example: false
+            memo:
+              type: string
+              description: A new memo for the transaction.
+              example: Rent
+            note:
+              type: string
+              description: A new note for the transaction.
+            payee:
+              type: string
+              description: A new payee for the transaction.
+              example: Bill
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Transaction'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'

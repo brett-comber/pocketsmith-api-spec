@@ -1,0 +1,62 @@
+get:
+  operationId: getTransactionAccount
+  summary: Get transaction account
+  description: Gets a transaction account by its ID.
+  tags:
+    - Transaction Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction account.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionAccount'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+put:
+  operationId: updateTransactionAccount
+  summary: Update transaction account
+  description: Change which institution the transaction account belongs to.
+  tags:
+    - Transaction Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction account.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            institution_id:
+              type: integer
+              description: The unique identifier of a new institution for the
+                transaction account.
+              example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionAccount'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

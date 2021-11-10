@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.1 
 
 info:
   contact:
@@ -6,11 +6,11 @@ info:
     name: API Support
   description: The public PocketSmith API
   title: PocketSmith
-  version: '2.0'
+  version: '2.0' 
 
 servers:
   - description: Production
-    url: https://api.pocketsmith.com/v2
+    url: https://api.pocketsmith.com/v2 
 
 security:
   - developerKey: []
@@ -20,7 +20,7 @@ x-samples-languages:
   - node
   - javascript
   - php
-  - python
+  - python 
 
 
 components:
@@ -35,7 +35,7 @@ components:
         widget to display your balances or a tool to import transactions from a bank
         without a bank feed, you can use our developer keys feature. You can issue
         yourself a key which will give you persistent API access to just your account.
-        You should rotate your keys regularly.
+        You should rotate your keys regularly. 
 
     oauth2:
       type: oauth2
@@ -59,7 +59,7 @@ components:
             transactions.write: Access to create, update and delete transactions
             user.read: Access the user's details and preferences
             user.write: Access to change the user's details and preferences
-          tokenUrl: https://api.pocketsmith.com/v2/oauth/access_token
+          tokenUrl: https://api.pocketsmith.com/v2/oauth/access_token 
 
   responses:
     '400':
@@ -67,28 +67,24 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
 
     '403':
       description: Not Allowed
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
 
     '404':
       description: Not Found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
 
     '422':
       description: Validation Error
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
 
   schemas:
 
@@ -243,7 +239,7 @@ components:
         currency_code:
           type: string
           description: The currency code for this BudgetAnalysis.
-          example: 'NZD'         
+          example: NZD
         periods:
           type: array
           description: The period analyses that this budget analysis comprises.
@@ -352,6 +348,124 @@ components:
           description: When the category rule was last updated.
           example: '2019-07-09T10:06:02Z'
 
+    DataConnection:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the data connection
+          example: '42'
+        name:
+          type: string
+          description: User-defined nickname for the data connection
+          nullable: true
+        status:
+          type: string
+          description: Sync/auth status of the data connection
+          enum:
+            - synced
+            - unsynced
+            - unauthorised
+            - authorisation_failed # XXX (zkanzler): am I missing any others?
+        status_changed_at:
+          type: string
+          format: date-time
+          description: When the data connection's status last changed
+        status_changed_at_hash:
+          type: string
+          description: MD5 hash of the status_changed_at field
+        error_detail:
+          type: string
+          description: '?'
+          nullable: true # XXX (zkanzler): what kind of error does this describe?
+        user_interaction_likely:
+          type: boolean # XXX (zkanzler): what type of user interaction does this refer to?
+          description: 'GUESSING: Whether syncing this data connection is likely to
+            require user interaction'
+        categorisation:
+          type: boolean
+          description: Whether automatic categorisation of transactions is enabled
+        automatic_syncing:
+          type: boolean
+          description: Whether the data connection will automatically sync when logged
+            in to PocketSmith
+        automatic_syncing_overridden:
+          type: boolean # XXX (zkanzler): what does this mean?
+          description: UNKNOWN
+        pending_transactions:
+          type: boolean
+          description: Whether to receive pending transactions from this data connection,
+            if available
+        login_form:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Form'
+        interactive_login_form:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Form'
+        external_authorisation_url:
+          type: string
+          format: url
+          description: UNKNOWN
+          nullable: true # XXX (zkanzler): what does this field describe?
+        external_syncing_url:
+          type: string
+          format: url
+          description: UNKNOWN
+          nullable: true # XXX (zkanzler): what does this field describe?
+        last_successful_sync_at:
+          type: string
+          format: date-time
+          description: When the data connection last synced successfully
+          nullable: true
+        next_sync_possible_at:
+          type: string
+          format: date-time
+          description: When the data connection is next allowed to sync at
+          nullable: true
+        next_background_sync_at:
+          type: string
+          format: date-time
+          description: When the data connection is scheduled to sync in the background
+            next
+          nullable: true
+        accounts_updated_at:
+          type: string
+          format: date-time
+          description: When the accounts tied to the data connection were last updated
+          nullable: true
+        soft_locked_until:
+          type: string
+          format: date-time
+          description: UNKNOWN
+          nullable: true # XXX (zkanzler): what does this field describe?
+        user:
+          type: object
+          description: Abbreviated properties of the user owning the data connection
+          properties:
+            id:
+              type: string
+              format: integer
+            email:
+              type: string
+              format: email
+            salt_edge_partners_consented:
+              type: boolean # XXX (zkanzler): what does this field describe?
+              description: UNKNOWN
+        provider:
+          $ref: '#/components/schemas/Provider'
+        created_at:
+          type: string
+          format: date-time
+          description: When the data connection was created
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          description: When the data connection was last updated
+          nullable: true
+
     Error:
       type: object
       properties:
@@ -359,6 +473,117 @@ components:
           type: string
           description: A message describing the error that occurred.
           example: A message describing the error that occurred.
+
+    Form:
+      type: object
+      properties:
+        approximate_expiry_at:
+          type: string
+          format: date-time
+          description: Estimated time when the form will no longer accept submissions
+          nullable: true
+        encryption:
+          type: string
+          description: Type of encryption employed by the form
+          enum:
+            - pki # XXX (zkanzler): are there any other types?
+        public_key:
+          type: string
+          description: RSA public key in PKCS#8 PEM format with which to encrypt values
+            of encrypted fields with # NOTE (zkanzler): this example is a 2048 bit key (as have been all pubkeys I've encountered)
+          example: |
+            -----BEGIN PUBLIC KEY-----
+            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvkywgFipFihDBpqw8nre
+            Td/FnONtwrfXNapxphgtWa026eyRkNBwyn/RFygaZ2QjAPxfd3UyjWSH6OQDoq4d
+            58lnrWLgcz8iyp6IAe/R8MMLauzY4E+t2NEfiFxN0qQBmg7K53c3F/1M4nygRORQ
+            oPV4CHwBH82+0c4S14JykZZEd7GQEKx8aAJ51x22PhVzP32gIkA2jrNU75hfHlA1
+            wNpMwQKlgfVJFY342QOWrbBVnv0ReFcPM5k8xOgq5OOfgyapddYlH+8VQeVie3xR
+            7D/8ehpydLGdRaJOdN/wGgEl09FJ0NWglqV1epWMBIpMTfkkB2Cu6jmuyQcIaLhs
+            LwIDAQAB
+            -----END PUBLIC KEY-----
+        rows:
+          type: array
+          description: Rows of form fields to display
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+                description: Display name of the row
+              fields:
+                type: array
+                description: Form fields to display in the row
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Index of the field within the whole form
+                      example: 1
+                    name:
+                      type: string
+                      description: Unique name of the form field
+                      example: password
+                    type:
+                      type: string
+                      description: Display type of the form field
+                      enum:
+                        - text
+                        - password
+                        - option
+                        - radio
+                        - image
+                    encrypted:
+                      type: boolean
+                      description: Whether the value of the form field should be encrypted
+                        with the form's `public_key`
+                    value:
+                      type: string
+                      nullable: true
+                      description: Value of the field, possibly encrypted
+                    image:
+                      type: string
+                      format: byte
+                      nullable: true # XXX (zkanzler): is this supposed to be the preview of an uploaded image?
+                      description: Base64-encoded JPEG image to display by the field
+                    placeholder:
+                      type: string
+                      nullable: true
+                      description: Placeholder text to display in the field
+                    editable:
+                      type: boolean
+                      description: Whether the user is allowed to edit the value of
+                        the field
+                    optional:
+                      type: boolean
+                      description: Whether the form can be submitted without providing
+                        a value to the field
+                    max_length:
+                      type: integer
+                      nullable: true
+                      description: Maximum number of characters allowed in the field
+                        value
+                    prefix:
+                      type: string
+                      nullable: true
+                      description: Text to display just before the form field
+                    suffix:
+                      type: string
+                      nullable: true
+                      description: Text to display just after the form field
+                    options:
+                      type: array
+                      description: For fields with type=option, the options to be
+                        displayed in the dropdown
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: Label of the option
+                          value:
+                            type: string
+                            description: Value of the option
 
     Institution:
       type: object
@@ -406,7 +631,7 @@ components:
         currency_code:
           type: string
           description: The currency code for amounts in this Period.
-          example: 'NZD'         
+          example: NZD
         forecast_amount:
           type: number
           description: The sum of all forecast sources (budget events) in the period,
@@ -444,6 +669,94 @@ components:
           type: number
           description: How much there is left in the budget for the period.
           example: 17.7
+
+    Provider:
+      type: object
+      properties:
+        id:
+          type: string
+          format: number
+          description: The unique identifier of the data connection feed provider
+          example: '42'
+        name:
+          type: string
+          description: Name of the data connection feed provider
+          example: Bank of America
+        ascii_name:
+          type: string
+          description: ASCII version of the data connection feed provider name
+          example: Bank of America
+        backend:
+          type: string
+          description: Data connection feed provider
+          example: yodlee
+        country:
+          type: string # XXX (zkanzler): is this really what country describes?
+          description: Country of origin of the provider # XXX (zkanzler): will this always be a two-letter country code?
+          example: US
+        authorisation_method:
+          type: string # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        external_authorisation:
+          type: boolean # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        syncing_method:
+          type: string # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        external_syncing:
+          type: boolean # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        available:
+          type: boolean # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        brand_sensitive:
+          type: boolean # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        experimental:
+          type: boolean # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        enabled:
+          type: boolean
+          description: Whether the provider can be used
+        home_url:
+          type: string
+          format: url
+          description: Link to homepage of provider
+        login_url:
+          type: string
+          format: url
+          description: Link to login page of provider
+        default_logo_url:
+          type: string
+          format: url
+          description: Default URL to provider's logo
+        custom_logo_url:
+          type: string
+          format: url # XXX (zkanzler): who provides this URL?
+          description: URL to provider's logo to override the default
+        provider_notices:
+          type: array # XXX (zkanzler): what's this for?
+          description: UNKNOWN # TODO (zkanzler): declare array items schema
+        backend_requires_consent:
+          type: boolean # XXX (zkanzler): what's this for?
+          description: UNKNOWN
+        backend_consent_text:
+          type: string
+          description: UNKNOWN
+          nullable: true # XXX (zkanzler): what's this for?
+        backend_consent_html:
+          type: string
+          description: UNKNOWN
+          nullable: true # XXX (zkanzler): what's this for?
+        created_at:
+          type: string
+          format: date-time
+          description: When the data connection feed provider was first created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the data connection feed provider was last updated
+          nullable: true
 
     Scenario:
       type: object
@@ -739,7 +1052,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     put:
       operationId: updateAccount
@@ -781,7 +1094,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     delete:
       operationId: deleteAccount
@@ -917,7 +1230,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     put:
       operationId: updateAttachment
@@ -955,7 +1268,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     delete:
       operationId: deleteAttachment
@@ -1004,7 +1317,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     put:
       operationId: updateCategory
@@ -1051,7 +1364,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     delete:
       operationId: deleteCategory
@@ -1127,6 +1440,122 @@ paths:
         '422':
           $ref: '#/components/responses/422'
 
+  /data_feeds_connections:
+    get:
+      operationId: getDataConnections
+      summary: Get the data connections (bank feeds) of the authenticated user
+      tags:
+        - Data Connections
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataConnection'
+
+  /data_feeds_connections/{id}:
+    get:
+      operationId: getDataConnection
+      summary: Retrieve the specified data connection (bank feed)
+      tags:
+        - Data Connections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the data connection.
+          schema:
+            type: integer
+          example: 42
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataConnection'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404' 
+
+    put:
+      operationId: updateDataConnection
+      summary: Update the data connection, potentially to submit a form
+      tags:
+        - Data Connections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the data connection.
+          schema:
+            type: integer
+          example: 42
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                automatic_syncing:
+                  $ref: '#/components/schemas/DataConnection/properties/automatic_syncing'
+                categorisation:
+                  $ref: '#/components/schemas/DataConnection/properties/categorisation'
+                name:
+                  $ref: '#/components/schemas/DataConnection/properties/name'
+                pending_transactions:
+                  $ref: '#/components/schemas/DataConnection/properties/pending_transactions'
+                login_form:
+                  $ref: '#/components/schemas/DataConnection/properties/login_form'
+                interactive_login_form:
+                  $ref: '#/components/schemas/DataConnection/properties/interactive_login_form'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataConnection'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+
+  /data_feeds_connections/{id}/data_feeds_accounts:
+    get:
+      operationId: getDataConnectionAccounts
+      summary: Get the accounts associated with the specified data connections (bank
+        feeds)
+      tags:
+        - Data Connections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the data connection.
+          schema:
+            type: integer
+          example: 42
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+
   /institutions/{id}:
     get:
       operationId: getInstitution
@@ -1152,7 +1581,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     put:
       operationId: updateInstitution
@@ -1194,7 +1623,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     delete:
       operationId: deleteInstitution
@@ -1291,7 +1720,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     put:
       operationId: updateTransactionAccount
@@ -1402,7 +1831,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     get:
       operationId: listTransactionAccountTransactions
@@ -1519,7 +1948,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     put:
       operationId: updateTransaction
@@ -1631,7 +2060,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     get:
       operationId: listTransactionAttachments
@@ -1717,7 +2146,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     put:
       operationId: updateUser
@@ -1848,7 +2277,7 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '404':
-          $ref: '#/components/responses/404'
+          $ref: '#/components/responses/404' 
 
     get:
       operationId: listAccounts
@@ -1925,7 +2354,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     get:
       operationId: listAttachments
@@ -2115,7 +2544,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     get:
       operationId: listCategories
@@ -2218,7 +2647,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'
         '422':
-          $ref: '#/components/responses/422'
+          $ref: '#/components/responses/422' 
 
     get:
       operationId: listInstitutions
@@ -2441,4 +2870,4 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/BudgetAnalysisPackage'
+                $ref: '#/components/schemas/BudgetAnalysisPackage'

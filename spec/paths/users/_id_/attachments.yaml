@@ -1,0 +1,83 @@
+post:
+  operationId: createAttachment
+  summary: Create attachment in user
+  description: Creates an attachment belonging to the user by their ID.
+  tags:
+    - Attachments
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            file_data:
+              type: string
+              format: base64
+              description: The base64-encoded contents of the source file. The
+                supported file types are png, jpg, pdf, xls, xlsx, doc, docx.
+            file_name:
+              type: string
+              description: The file name of the attachment.
+              example: taxi.png
+            title:
+              type: string
+              description: The title of the attachment. If the title is blank
+                or not provided, the title will derived from the file name.
+              example: Invoice for taxi
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Attachment'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+get:
+  operationId: listAttachments
+  summary: Lists attachments in user
+  description: Lists attachments belonging to a user by their ID.
+  tags:
+    - Attachments
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+    - name: unassigned
+      in: query
+      required: false
+      description: If set, returns unassigned attachments, that are available
+        for assigning to a transaction.
+      schema:
+        type: integer
+      example: 1
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Attachment'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

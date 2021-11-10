@@ -1,0 +1,90 @@
+post:
+  operationId: createAccount
+  summary: Create an account in user
+  description: Creates and returns an account belonging to the user by their ID.
+  tags:
+    - Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            currency_code:
+              type: string
+              description: A currency code for the account.
+              example: NZD
+            institution_id:
+              type: integer
+              description: The ID of the institution to create this account in.
+              example: 42
+            title:
+              type: string
+              description: A title for the account.
+              example: Foo
+            type:
+              type: string
+              description: The type of the account.
+              example: bank
+              enum:
+                - bank
+                - credits
+                - loans
+                - mortgage
+                - stocks
+                - vehicle
+                - property
+                - other_asset
+                - other_liability
+          required:
+            - institution_id
+            - title
+            - currency_code
+            - type
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+get:
+  operationId: listAccounts
+  summary: List accounts in user
+  description: Lists all accounts belonging to the user by their ID.
+  tags:
+    - Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Account'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

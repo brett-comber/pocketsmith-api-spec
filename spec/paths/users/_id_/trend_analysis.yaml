@@ -1,0 +1,80 @@
+get:
+  operationId: getTrendAnalysis
+  summary: Get trend analysis for user
+  description: Get an income and/or expense budget analysis for the given date
+    range and period across any number of categories and scenarios. Akin to the
+    Trends page in PocketSmith.
+  tags:
+    - Budgeting
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+    - name: period
+      in: query
+      required: true
+      description: The period to analyse in, one of `weeks`, `months` or `years`.
+        Also supported is `event`, although event period analysis is only possible
+        when the budget events gathered align, so in this case where all categories
+        are analysed together, it's highly unlikely that event period analysis
+        will be possible.
+      schema:
+        type: string
+        enum:
+          - weeks
+          - months
+          - years
+          - event
+      example: weeks
+    - name: interval
+      in: query
+      required: true
+      description: The period interval, e.g. if the interval is 2 and the period
+        is weeks, the budget will be analysed fortnightly.
+      schema:
+        type: integer
+      example: true
+    - name: start_date
+      in: query
+      required: true
+      description: The date to start analysing the budget from. This will be bumped
+        out to make full periods as necessary.
+      schema:
+        type: string
+      example: '2016-11-01'
+    - name: end_date
+      in: query
+      required: true
+      description: The date to stop analysing the budget from. This will be bumped
+        out to make full periods as necessary.
+      schema:
+        type: string
+      example: '2016-11-30'
+    - name: categories
+      in: query
+      required: true
+      description: A comma-separated list of category IDs to analyse.
+      schema:
+        type: string
+      example: 42,49
+    - name: scenarios
+      in: query
+      required: true
+      description: A comma-separated list of scenario IDs to analyse. You're likely
+        going to want to include all a user's scenarios here, unless you have
+        reason to only analyse for a subset of scenarios. Regardless of what scenarios
+        are analysed, all actuals (transactions) across all accounts will be included.
+      schema:
+        type: string
+      example: 11,29
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+              $ref: '#/components/schemas/BudgetAnalysisPackage'

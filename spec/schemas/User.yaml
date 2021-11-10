@@ -1,0 +1,71 @@
+type: object
+properties:
+  always_show_base_currency:
+    type: boolean
+    description: Whether the user wants to see all accounts in their base currency
+      instead of the native account currency.
+    example: false
+  avatar_url:
+    type: string
+    description: The URL to the user's avatar.
+    example: https://image.com/image.png
+  base_currency_code:
+    type: string
+    description: The user's base currency.
+    example: NZD
+  beta_user:
+    type: boolean
+    description: Whether the user has opted in to beta features.
+    example: true
+  created_at:
+    type: string
+    format: date-time
+    description: When the user signed up.
+    example: '2015-07-02T22:14:49Z'
+  email:
+    type: string
+    description: The user's email address.
+    example: user69@sample.com
+  id:
+    type: integer
+    description: The unique identifier of the user.
+    example: 42
+  last_activity_at:
+    type: string
+    format: date-time
+    description: When the user last interacted with PocketSmith, via any application
+      or the API.
+    example: '2015-07-02T22:14:49Z'
+  last_logged_in_at:
+    type: string
+    format: date-time
+    description: When the user last logged into PocketSmith.
+    example: '2015-07-02T22:14:49Z'
+  login:
+    type: string
+    description: The user's username.
+    example: sampleuser69
+  name:
+    type: string
+    description: The full name of the user, although not all users will have
+      a name set.
+    example: Foo Barrington
+  time_zone:
+    type: string
+    description: The user's time zone.
+    example: Auckland
+  updated_at:
+    type: string
+    format: date-time
+    description: When the user was last updated.
+    example: '2015-07-02T22:14:49Z'
+  using_multiple_currencies:
+    type: boolean
+    description: Whether the user has multiple currencies in use across their
+      account.
+    example: true
+  week_start_day:
+    type: integer
+    description: The day of the week the user wishes their calendars to start
+      on. A number between 0 and 6, where 0 is Sunday and 6 is Saturday.
+    example: 1

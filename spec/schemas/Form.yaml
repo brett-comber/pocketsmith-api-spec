@@ -1,0 +1,106 @@
+type: object
+properties:
+  approximate_expiry_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: Estimated time when the form will no longer accept submissions
+  encryption:
+    type: string
+    description: Type of encryption employed by the form
+    enum:
+      - pki
+      # XXX (zkanzler): are there any other types?
+  public_key:
+    type: string
+    description: RSA public key in PKCS#8 PEM format with which to encrypt values of encrypted fields with
+    # NOTE (zkanzler): this example is a 2048 bit key (as have been all pubkeys I've encountered)
+    example: |
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvkywgFipFihDBpqw8nre
+      Td/FnONtwrfXNapxphgtWa026eyRkNBwyn/RFygaZ2QjAPxfd3UyjWSH6OQDoq4d
+      58lnrWLgcz8iyp6IAe/R8MMLauzY4E+t2NEfiFxN0qQBmg7K53c3F/1M4nygRORQ
+      oPV4CHwBH82+0c4S14JykZZEd7GQEKx8aAJ51x22PhVzP32gIkA2jrNU75hfHlA1
+      wNpMwQKlgfVJFY342QOWrbBVnv0ReFcPM5k8xOgq5OOfgyapddYlH+8VQeVie3xR
+      7D/8ehpydLGdRaJOdN/wGgEl09FJ0NWglqV1epWMBIpMTfkkB2Cu6jmuyQcIaLhs
+      LwIDAQAB
+      -----END PUBLIC KEY-----
+  rows:
+    type: array
+    description: Rows of form fields to display
+    items:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Display name of the row
+        fields:
+          type: array
+          description: Form fields to display in the row
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Index of the field within the whole form
+                example: 1
+              name:
+                type: string
+                description: Unique name of the form field
+                example: password
+              type:
+                type: string
+                description: Display type of the form field
+                enum:
+                  - text
+                  - password
+                  - option
+                  - radio
+                  - image
+              encrypted:
+                type: boolean
+                description: Whether the value of the form field should be encrypted with the form's `public_key`
+              value:
+                type: string
+                nullable: True
+                description: Value of the field, possibly encrypted
+              image:
+                type: string
+                format: byte
+                nullable: true
+                # XXX (zkanzler): is this supposed to be the preview of an uploaded image?
+                description: Base64-encoded JPEG image to display by the field
+              placeholder:
+                type: string
+                nullable: true
+                description: Placeholder text to display in the field
+              editable:
+                type: boolean
+                description: Whether the user is allowed to edit the value of the field
+              optional:
+                type: boolean
+                description: Whether the form can be submitted without providing a value to the field
+              max_length:
+                type: integer
+                nullable: true
+                description: Maximum number of characters allowed in the field value
+              prefix:
+                type: string
+                nullable: true
+                description: Text to display just before the form field
+              suffix:
+                type: string
+                nullable: true
+                description: Text to display just after the form field
+              options:
+                type: array
+                description: For fields with type=option, the options to be displayed in the dropdown
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Label of the option
+                    value:
+                      type: string
+                      description: Value of the option

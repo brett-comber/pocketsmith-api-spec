@@ -1,0 +1,78 @@
+type: object
+properties:
+  achieve_date:
+    type: string
+    description: For goals, the date that they should be achieved by.
+  closing_balance:
+    type: number
+    description: The closing balance of the scenario.
+    example: 5431.2
+  closing_balance_date:
+    type: string
+    format: date
+    description: The date of the closing balance.
+    example: '2018-02-27'
+  created_at:
+    type: string
+    format: date-time
+    description: When the scenario was created.
+    example: '2015-04-21T22:42:22Z'
+  current_balance:
+    type: number
+    description: The current balance of the scenario.
+    example: 5431.2
+  current_balance_date:
+    type: string
+    format: date
+    description: The date of the current balance.
+    example: '2018-02-27'
+  description:
+    type: string
+    description: A short description of what the scenario is modelling.
+  id:
+    type: integer
+    description: The unique identifier of the scenario.
+    example: 42
+  interest_rate:
+    type: number
+    description: The amount of interest to apply to the balance. Will apply
+      periodically depending on what `interest_rate_repeat_id` is set to.
+    example: 2.4
+  interest_rate_repeat_id:
+    type: integer
+    description: A number representing how often the interest should be applied.
+      0 is used for no interest, 2 is weekly, 3 is fortnightly, 4 is monthly,
+      5 is yearly and 7 for quarterly.
+    example: 4
+  maximum-value:
+    type: number
+    example: 42
+  minimum-value:
+    type: number
+    example: 4000
+  starting_balance:
+    type: number
+    description: The starting balance of the scenario.
+    example: 2450
+  starting_balance_date:
+    type: string
+    format: date
+    description: The date of the starting balance.
+    example: '2018-02-27'
+  title:
+    type: string
+    description: The title of the scenario.
+    example: Wedding
+  type:
+    type: string
+    description: The type of the scenario.
+    example: no-interest
+    enum:
+      - no-interest
+      - savings
+      - debt
+  updated_at:
+    type: string
+    format: date-time
+    description: When the scenario was last updated.
+    example: '2015-04-21T22:42:22Z'

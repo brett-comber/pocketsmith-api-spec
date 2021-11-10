@@ -1,0 +1,92 @@
+get:
+  operationId: getInstitution
+  summary: Get institution
+  description: Gets an institution by its ID.
+  tags:
+    - Institutions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the institution.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Institution'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+put:
+  operationId: updateInstitution
+  summary: Update institution
+  description: Updates the title and currency code for an institution.
+  tags:
+    - Institutions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the institution.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            currency_code:
+              type: string
+              description: A new currency code for the institution.
+              example: NZD
+            title:
+              type: string
+              description: A new title for the institution.
+              example: Bank of Foo
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Institution'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+delete:
+  operationId: deleteInstitution
+  summary: Delete institution
+  description: Deletes an institution and all data within. Alternatively, another
+    institution can be provided to merge the data into to avoid losing it.
+  tags:
+    - Institutions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the institution.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '204':
+      description: Success
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'

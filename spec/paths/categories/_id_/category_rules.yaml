@@ -1,0 +1,49 @@
+post:
+  operationId: createCategoryRule
+  summary: Create category rule in category
+  description: Creates a rule to allocate a category to transactions.
+  tags:
+    - Category Rules
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the category.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            apply_to_all:
+              type: boolean
+              description: Apply the created category rule to all transactions.
+              example: false
+            apply_to_uncategorised:
+              type: boolean
+              description: Apply the created category rule to all uncategorised
+                transactions.
+              example: true
+            payee_matches:
+              type: string
+              description: The keyword/s to match the transaction payees.
+              example: Countdown
+          required:
+            - category_id
+            - payee_matches
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CategoryRule'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'

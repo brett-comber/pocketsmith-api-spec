@@ -1,0 +1,13 @@
+type: object
+properties:
+  category:
+    $ref: '#/components/schemas/Category'
+  expense:
+    $ref: '#/components/schemas/BudgetAnalysis'
+  income:
+    $ref: '#/components/schemas/BudgetAnalysis'
+  is_transfer:
+    type: boolean
+    description: Whether the expense budget analysis looks like a transfer to
+      the income budget analysis, based on a number of heuristics.
+    example: false

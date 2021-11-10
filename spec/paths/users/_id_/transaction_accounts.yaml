@@ -1,0 +1,27 @@
+get:
+  operationId: listTransactionAccounts
+  summary: List transaction accounts in user
+  description: List all transaction accounts belonging to a user.
+  tags:
+    - Transaction Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/TransactionAccount'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

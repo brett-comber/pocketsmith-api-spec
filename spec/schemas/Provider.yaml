@@ -1,0 +1,101 @@
+type: object
+properties:
+  id:
+    type: string
+    format: number
+    description: The unique identifier of the data connection feed provider
+    example: "42"
+  name:
+    type: string
+    description: Name of the data connection feed provider
+    example: "Bank of America"
+  ascii_name:
+    type: string
+    description: ASCII version of the data connection feed provider name
+    example: "Bank of America"
+  backend:
+    type: string
+    description: Data connection feed provider
+    example: "yodlee"
+  country:
+    type: string
+    # XXX (zkanzler): is this really what country describes?
+    description: Country of origin of the provider
+    # XXX (zkanzler): will this always be a two-letter country code?
+    example: "US"
+  authorisation_method:
+    type: string
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  external_authorisation:
+    type: boolean
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  syncing_method:
+    type: string
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  external_syncing:
+    type: boolean
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  available:
+    type: boolean
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  brand_sensitive:
+    type: boolean
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  experimental:
+    type: boolean
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  enabled:
+    type: boolean
+    description: Whether the provider can be used
+  home_url:
+    type: string
+    format: url
+    description: Link to homepage of provider
+  login_url:
+    type: string
+    format: url
+    description: Link to login page of provider
+  default_logo_url:
+    type: string
+    format: url
+    description: Default URL to provider's logo
+  custom_logo_url:
+    type: string
+    format: url
+    # XXX (zkanzler): who provides this URL?
+    description: URL to provider's logo to override the default
+  provider_notices:
+    type: array
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+    # TODO (zkanzler): declare array items schema
+  backend_requires_consent:
+    type: boolean
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  backend_consent_text:
+    type: string
+    nullable: true
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  backend_consent_html:
+    type: string
+    nullable: true
+    # XXX (zkanzler): what's this for?
+    description: 'UNKNOWN'
+  created_at:
+    type: string
+    format: date-time
+    description: When the data connection feed provider was first created
+  updated_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the data connection feed provider was last updated

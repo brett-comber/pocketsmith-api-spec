@@ -1,0 +1,40 @@
+type: object
+properties:
+  children:
+    type: array
+    description: The category's child categories.
+    items:
+      $ref: '#/components/schemas/Category'
+  colour:
+    type: string
+    format: CSS-style hex triplet
+    description: The colour for the category.
+    example: '#00ff00'
+    pattern: ^#[0-9a-fA-F]{6}
+  created_at:
+    type: string
+    format: date-time
+    description: When the category was created.
+    example: '2015-08-16T02:17:02Z'
+  id:
+    type: integer
+    description: The unique identifier of the category.
+    example: 1438154
+  is_transfer:
+    type: boolean
+    description: Whether this category has been marked as a transfer category.
+    example: false
+  parent_id:
+    type: integer
+    description: The unique identifier of the parent category of this category,
+      or null if this category has no parent (i.e. is a top-level category)
+    example: 42
+  title:
+    type: string
+    description: The title of the category.
+    example: Beer
+  updated_at:
+    type: string
+    format: date-time
+    description: When the category was last updated.
+    example: '2015-08-16T02:17:02Z'

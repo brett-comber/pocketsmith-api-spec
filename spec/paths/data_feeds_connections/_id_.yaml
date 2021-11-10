@@ -1,0 +1,69 @@
+get:
+  operationId: getDataConnection
+  summary: Retrieve the specified data connection (bank feed)
+  tags:
+    - Data Connections
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the data connection.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataConnection'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+put:
+  operationId: updateDataConnection
+  summary: Update the data connection, potentially to submit a form
+  tags:
+    - Data Connections
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the data connection.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            automatic_syncing:
+              $ref: '#/components/schemas/DataConnection/properties/automatic_syncing'
+            categorisation:
+              $ref: '#/components/schemas/DataConnection/properties/categorisation'
+            name:
+              $ref: '#/components/schemas/DataConnection/properties/name'
+            pending_transactions:
+              $ref: '#/components/schemas/DataConnection/properties/pending_transactions'
+            login_form:
+              $ref: '#/components/schemas/DataConnection/properties/login_form'
+            interactive_login_form:
+              $ref: '#/components/schemas/DataConnection/properties/interactive_login_form'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataConnection'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'

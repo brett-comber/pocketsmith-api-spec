@@ -1,0 +1,95 @@
+get:
+  operationId: getCategory
+  summary: Get category
+  description: Gets a particular category by its ID.
+  tags:
+    - Categories
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the category.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Category'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+put:
+  operationId: updateCategory
+  summary: Update category
+  description: Updates the title, colour or parent of the category.
+  tags:
+    - Categories
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the category.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            colour:
+              type: string
+              description: A new CSS-style hex colour for the category.
+              example: '#e0e7ff'
+            parent_id:
+              type: integer
+              description: The unique identifier of a parent category for the
+                category, making this category a child of that category.
+              example: 42
+            title:
+              type: string
+              description: A new title for the category.
+              example: Food
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Category'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+delete:
+  operationId: deleteCategory
+  summary: Delete category
+  description: Deletes a particular category by its ID. This will delete all budgets
+    within the category, and uncategorize all transactions assigned to the category.
+  tags:
+    - Categories
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the category.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '204':
+      description: Success
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

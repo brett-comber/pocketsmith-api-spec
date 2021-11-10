@@ -1,0 +1,76 @@
+post:
+  operationId: createCategory
+  summary: Create category in user
+  description: Creates a category belonging to the user by their ID.
+  tags:
+    - Categories
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            colour:
+              type: string
+              description: A CSS-style hex colour for the category.
+              example: '#e0e7ff'
+            parent_id:
+              type: integer
+              description: The unique identifier of a category to be the parent
+                of this category.
+              example: 42
+            title:
+              type: string
+              description: A title for the category.
+              example: Food
+          required:
+            - title
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Category'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+get:
+  operationId: listCategories
+  summary: List categories in user
+  description: Lists all categories belonging to a user by their ID.
+  tags:
+    - Categories
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Category'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

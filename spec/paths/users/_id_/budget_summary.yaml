@@ -1,0 +1,66 @@
+get:
+  operationId: getBudgetSummary
+  summary: Get budget summary for user
+  description: Get the user's budget summary, containing an expense and income
+    analysis for all categories (excluding transfer categories) for the given
+    period and date range. Akin to the overall budget shown on the Budget page
+    in PocketSmith.
+  tags:
+    - Budgeting
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+    - name: period
+      in: query
+      required: true
+      description: The period to analyse in, one of `weeks`, `months` or `years`.
+        Also supported is `event`, although event period analysis is only possible
+        when the budget events gathered align, so in this case where all categories
+        are analysed together, it's highly unlikely that event period analysis
+        will be possible.
+      schema:
+        type: string
+        enum:
+          - weeks
+          - months
+          - years
+          - event
+      example: weeks
+    - name: interval
+      in: query
+      required: true
+      description: The period interval, e.g. if the interval is 2 and the period
+        is weeks, the budget will be analysed fortnightly.
+      schema:
+        type: integer
+      example: 2
+    - name: start_date
+      in: query
+      required: true
+      description: The date to start analysing the budget from. This will be bumped
+        out to make full periods as necessary.
+      schema:
+        type: string
+      example: '2016-11-01'
+    - name: end_date
+      in: query
+      required: true
+      description: The date to stop analysing the budget from. This will be bumped
+        out to make full periods as necessary.
+      schema:
+        type: string
+      example: '2016-11-30'
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/BudgetAnalysisPackage'
+            type: array

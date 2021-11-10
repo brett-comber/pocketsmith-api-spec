@@ -1,0 +1,14 @@
+get:
+  operationId: getMe
+  summary: Get the authorised user
+  description: Gets the user that corresponds to the access token used in the
+    request.
+  tags:
+    - Users
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'

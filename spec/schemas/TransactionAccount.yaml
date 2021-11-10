@@ -1,0 +1,40 @@
+type: object
+properties:
+  created_at:
+    type: string
+    format: date-time
+    example: '2015-03-17T02:42:10Z'
+  currency_code:
+    type: string
+    description: The currency that the account is in. This is determined by
+      the account that the transaction account belongs to.
+    example: NZD
+  current_balance:
+    type: number
+    example: 2694.39
+  current_balance_date:
+    type: string
+    format: date
+    example: '2015-07-03'
+  id:
+    type: integer
+    example: 96027
+  institution:
+    $ref: '#/components/schemas/Institution'
+  name:
+    type: string
+    example: Sample Credit
+  number:
+    type: string
+    example: ASBCRD44554
+  starting_balance:
+    type: number
+    example: 3547.45
+  starting_balance_date:
+    type: string
+    format: date
+    example: '2015-03-15'
+  updated_at:
+    type: string
+    format: date-time
+    example: '2015-07-02T22:14:49Z'

@@ -1,0 +1,65 @@
+type: object
+properties:
+  created_at:
+    type: string
+    format: date
+    description: When the account was created.
+    example: '2018-02-27'
+  currency_code:
+    type: string
+    description: The currency code for the account.
+    example: NZD
+  current_balance:
+    type: number
+    description: The current balance of the account.
+    example: 2694.39
+  current_balance_date:
+    type: string
+    format: date
+    description: The date of the current balance.
+    example: '2018-02-27'
+  id:
+    type: integer
+    description: The unique identifier of the account.
+    example: 42
+  is_net_worth:
+    type: boolean
+    description: Whether the account is a net worth asset.
+    example: false
+  primary_scenario:
+    $ref: '#/components/schemas/Scenario'
+  primary_transaction_account:
+    $ref: '#/components/schemas/TransactionAccount'
+  scenarios:
+    type: array
+    description: All scenarios that compose the account, including the primary.
+    items:
+      $ref: '#/components/schemas/Scenario'
+  title:
+    type: string
+    description: The title of the account.
+    example: Bank of Foo
+  transaction_accounts:
+    type: array
+    description: All transaction accounts that compose the account, including
+      the primary.
+    items:
+      $ref: '#/components/schemas/TransactionAccount'
+  type:
+    type: string
+    description: The type of the account.
+    example: bank
+    enum:
+      - bank
+      - credits
+      - stocks
+      - mortgage
+      - loans
+      - vehicle
+      - property
+      - other_liability
+  updated_at:
+    type: string
+    format: date
+    description: When the account was last updated.
+    example: '2018-02-27'

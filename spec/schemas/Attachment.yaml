@@ -1,0 +1,63 @@
+type: object
+properties:
+  content_type:
+    type: string
+    description: The content type of the attachment.
+    example: image/png
+  content_type_meta:
+    type: object
+    properties:
+      description:
+        type: string
+        description: The content type description of the attachment
+        example: PNG image
+      extension:
+        type: string
+        description: The extension type of the attachment
+        example: png
+      title:
+        type: string
+        description: The content type title of the attachment
+        example: PNG
+  created_at:
+    type: string
+    format: date-time
+    description: When the attachment was created
+    example: '2015-08-16T02:17:02Z'
+  file_name:
+    type: string
+    description: The file name of the attachment
+    example: taxi.png
+  id:
+    type: integer
+    description: The unique identifier of the attachment
+    example: 1438154
+  original_url:
+    type: string
+    description: The url of the attachment
+    example: https://image.com/image.png
+  title:
+    type: string
+    description: The title of the attachment. If blank or not provided, the
+      title will be derived from the file name.
+    example: Invoice for taxi
+  type:
+    type: string
+    description: The type of attachment
+    example: image
+  updated_at:
+    type: string
+    format: date-time
+    description: When the attachment was last updated
+    example: '2015-08-16T02:17:02Z'
+  variants:
+    type: object
+    properties:
+      large_url:
+        type: string
+        description: The url of the large version of the attachment
+        example: https://image.com/image.png
+      thumb_url:
+        type: string
+        description: The url of the thumb version of the attachment
+        example: https://image.com/image.png

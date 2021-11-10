@@ -1,0 +1,27 @@
+get:
+  operationId: listCategoryRules
+  summary: List category rules in user
+  description: Lists all category rules belonging to a user by their ID.
+  tags:
+    - Category Rules
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/CategoryRule'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

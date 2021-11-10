@@ -11,7 +11,7 @@ yaml = YAML()
 yaml.indent(sequence=4, offset=2)
 
 
-spec_path = Path(__file__).parent / 'openapi.yaml'
+spec_path = Path(__file__).parent / 'dist/openapi.yaml'
 
 
 def reorder_map(d: OrderedDict, *keys) -> None:

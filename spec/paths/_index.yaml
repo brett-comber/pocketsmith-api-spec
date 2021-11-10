@@ -1,0 +1,54 @@
+/accounts/{id}:
+  $ref: ./accounts/_id_.yaml
+/accounts/{id}/transactions:
+  $ref: ./accounts/_id_/transactions.yaml
+/attachments/{id}:
+  $ref: ./attachments/_id_.yaml
+/categories/{id}:
+  $ref: ./categories/_id_.yaml
+/categories/{id}/category_rules:
+  $ref: ./categories/_id_/category_rules.yaml
+/data_feeds_connections:
+  $ref: ./data_feeds_connections.yaml
+/data_feeds_connections/{id}:
+  $ref: ./data_feeds_connections/_id_.yaml
+/data_feeds_connections/{id}/data_feeds_accounts:
+  $ref: ./data_feeds_connections/_id_/data_feeds_accounts.yaml
+/institutions/{id}:
+  $ref: ./institutions/_id_.yaml
+/institutions/{id}/accounts:
+  $ref: ./institutions/_id_/accounts.yaml
+/me:
+  $ref: ./me.yaml
+/transaction_accounts/{id}:
+  $ref: ./transaction_accounts/_id_.yaml
+/transaction_accounts/{id}/transactions:
+  $ref: ./transaction_accounts/_id_/transactions.yaml
+/transactions/{id}:
+  $ref: ./transactions/_id_.yaml
+/transactions/{id}/attachments:
+  $ref: ./transactions/_id_/attachments.yaml
+/transactions/{transaction_id}/attachments/{attachment_id}:
+  $ref: ./transactions/_transaction_id_/attachments/_attachment_id_.yaml
+/users/{id}:
+  $ref: ./users/_id_.yaml
+/users/{id}/accounts:
+  $ref: ./users/_id_/accounts.yaml
+/users/{id}/attachments:
+  $ref: ./users/_id_/attachments.yaml
+/users/{id}/budget:
+  $ref: ./users/_id_/budget.yaml
+/users/{id}/budget_summary:
+  $ref: ./users/_id_/budget_summary.yaml
+/users/{id}/categories:
+  $ref: ./users/_id_/categories.yaml
+/users/{id}/category_rules:
+  $ref: ./users/_id_/category_rules.yaml
+/users/{id}/institutions:
+  $ref: ./users/_id_/institutions.yaml
+/users/{id}/transaction_accounts:
+  $ref: ./users/_id_/transaction_accounts.yaml
+/users/{id}/transactions:
+  $ref: ./users/_id_/transactions.yaml
+/users/{id}/trend_analysis:
+  $ref: ./users/_id_/trend_analysis.yaml

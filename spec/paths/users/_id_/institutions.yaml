@@ -1,0 +1,72 @@
+post:
+  operationId: createInstitution
+  summary: Create institution in user
+  description: Creates an institution belonging to a user.
+  tags:
+    - Institutions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            currency_code:
+              type: string
+              description: A currency code for the institution.
+              example: NZD
+            title:
+              type: string
+              description: A title for the institution.
+              example: Bank of Foo
+          required:
+            - title
+            - currency_code
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Institution'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+get:
+  operationId: listInstitutions
+  summary: List institutions in user
+  description: Lists all the institutions belonging to the user.
+  tags:
+    - Institutions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the user
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Institution'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

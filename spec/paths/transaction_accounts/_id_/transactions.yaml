@@ -1,0 +1,162 @@
+post:
+  operationId: createTransactionAccountTransaction
+  summary: Create a transaction in transaction account
+  description: Creates a transaction in a transaction account by its ID.
+  tags:
+    - Transactions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction account.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            amount:
+              type: number
+              description: The amount of the transaction. A positive amount is
+                a credit, and a negative amount is a debit.
+              example: 11.5
+            category_id:
+              type: integer
+              description: The unique identifier of a category for the transaction.
+              example: 42
+            cheque_number:
+              type: string
+              description: A cheque number for the transaction.
+            date:
+              type: string
+              description: The date when the transaction occurred.
+              example: '2018-02-27'
+            is_transfer:
+              type: boolean
+              description: Whether the transaction should be indicated as a transfer.
+              example: false
+            labels:
+              type: string
+              description: A set of comma-separated labels for the transaction.
+              example: lunch,mexican
+            memo:
+              type: string
+              description: A memo for the transaction.
+            note:
+              type: string
+              description: A note for the transaction.
+              example: I really enjoyed the loaded corn chips
+            payee:
+              type: string
+              description: The payee/merchant of the transaction.
+              example: Tex Otago
+          required:
+            - payee
+            - amount
+            - date
+  responses:
+    '201':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Transaction'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+get:
+  operationId: listTransactionAccountTransactions
+  summary: List transactions in transaction account
+  description: Lists transactions belonging to a transaction account by its ID.
+  tags:
+    - Transactions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the transaction account.
+      schema:
+        type: integer
+      example: 42
+    - name: start_date
+      in: query
+      required: false
+      description: Return only transactions on or after this date. Required if
+        `end_date` is provided. If not provided, defaults to the furtherest date
+        allowed by the user's subscription.
+      schema:
+        type: string
+      example: '2016-11-01'
+    - name: end_date
+      in: query
+      required: false
+      description: Return transactions that fall on or before this date. Required
+        if `start_date` is provided. If not provided, defaults to today's date.
+      schema:
+        type: string
+      example: '2016-11-30'
+    - name: only_uncategorised
+      in: query
+      required: false
+      description: If set, will return only uncategorised results.
+      schema:
+        type: integer
+      example: 1
+    - name: type
+      in: query
+      required: false
+      description: Only return transactions of this type.
+      schema:
+        type: string
+        enum:
+          - debit
+          - credit
+      example: debit
+    - name: search
+      in: query
+      required: false
+      description: Only return transactions matching these search terms
+      schema:
+        type: string
+      example: debit
+    - name: page
+      in: query
+      required: false
+      description: Choose a particular page of the results.
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      example: 3
+    - name: per_page
+      in: query
+      required: false
+      description: Number of records to return in a single response.
+      schema:
+        type: integer
+        default: 30
+        maximum: 100
+        minimum: 10
+      example: 30
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Transaction'
+            type: array
+    '400':
+      $ref: '#/components/responses/400'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

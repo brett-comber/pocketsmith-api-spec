@@ -1,0 +1,27 @@
+get:
+  operationId: listInstitutionAccounts
+  summary: List accounts in institution
+  description: Lists accounts belonging to an institution by its ID.
+  tags:
+    - Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the institution.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Account'
+            type: array
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

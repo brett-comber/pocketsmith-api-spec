@@ -1,0 +1,97 @@
+openapi: 3.0.1
+
+info:
+  contact:
+    email: api@pocketsmith.com
+    name: API Support
+  description: The public PocketSmith API
+  title: PocketSmith
+  version: '2.0'
+
+servers:
+  - description: Production
+    url: https://api.pocketsmith.com/v2
+
+security:
+  - developerKey: []
+
+x-samples-languages:
+  - curl
+  - node
+  - javascript
+  - php
+  - python
+
+
+components:
+
+  securitySchemes:
+
+    developerKey:
+      type: apiKey
+      name: X-Developer-Key
+      in: header
+      description: If you want to build a tool just for yourself, be it a desktop
+        widget to display your balances or a tool to import transactions from a bank
+        without a bank feed, you can use our developer keys feature. You can issue
+        yourself a key which will give you persistent API access to just your account.
+        You should rotate your keys regularly.
+
+    oauth2:
+      type: oauth2
+      description: If you want to a create an app for PocketSmith that other PocketSmith
+        users can use, you'll be using OAuth 2. To register an app with PocketSmith,
+        please email us on api@pocketsmith.com. Let us know a bit about yourself and
+        what you plan on building. When approved, you will be provided with your client_id
+        and client_secret to start using OAuth. Then, check out our guide for integrating
+        OAuth to get started.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://my.pocketsmith.com/oauth/authorize
+          scopes:
+            accounts.read: Access to list and view transaction accounts
+            accounts.write: Access to update and delete transaction accounts
+            attachments.read: Access to view attachments
+            attachments.write: Ability to create, update and delete attachments
+            categories.read: Access to view categories
+            categories.write: Ability to edit and delete categories
+            transactions.read: Access to list and view accounts and transactions
+            transactions.write: Access to create, update and delete transactions
+            user.read: Access the user's details and preferences
+            user.write: Access to change the user's details and preferences
+          tokenUrl: https://api.pocketsmith.com/v2/oauth/access_token
+
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/_index.yaml#Error'
+
+    '403':
+      description: Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/_index.yaml#Error'
+
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/_index.yaml#Error'
+
+    '422':
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/_index.yaml#Error'
+
+  schemas:
+    $ref: './schemas/_index.yaml'
+
+paths:
+  $ref: './paths/_index.yaml'

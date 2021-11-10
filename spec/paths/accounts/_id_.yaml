@@ -1,0 +1,92 @@
+get:
+  operationId: getAccount
+  summary: Get account
+  description: Gets an account by its ID.
+  tags:
+    - Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+put:
+  operationId: updateAccount
+  summary: Update account
+  description: Updates and returns an account by its ID.
+  tags:
+    - Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            currency_code:
+              type: string
+              description: A new currency code for the account.
+              example: NZD
+            title:
+              type: string
+              description: A new title for the account.
+              example: Savings
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'
+
+delete:
+  operationId: deleteAccount
+  summary: Delete account
+  description: Deletes an account and all its data by ID, optionally merge scenarios
+    into another account.
+  tags:
+    - Accounts
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '204':
+      description: Success
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+    '422':
+      $ref: '#/components/responses/422'

@@ -1,0 +1,85 @@
+get:
+  operationId: getAttachment
+  summary: Get attachment
+  description: Gets a particular attachment by its ID.
+  tags:
+    - Attachments
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the attachment.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Attachment'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+put:
+  operationId: updateAttachment
+  summary: Update attachment
+  description: Updates the title of the attachment.
+  tags:
+    - Attachments
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the attachment.
+      schema:
+        type: integer
+      example: 42
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The new title of the attachment. If the title is blank
+                or not provided, the server will derive a title from the file
+                name.
+              example: Invoice for taxi
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Attachment'
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'
+
+delete:
+  operationId: deleteAttachment
+  summary: Delete attachment
+  description: Deletes a particular attachment by its ID.
+  tags:
+    - Attachments
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The unique identifier of the attachment.
+      schema:
+        type: integer
+      example: 42
+  responses:
+    '204':
+      description: Success
+    '403':
+      $ref: '#/components/responses/403'
+    '404':
+      $ref: '#/components/responses/404'

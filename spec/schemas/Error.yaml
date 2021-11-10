@@ -1,0 +1,6 @@
+type: object
+properties:
+  error:
+    type: string
+    description: A message describing the error that occurred.
+    example: A message describing the error that occurred.
