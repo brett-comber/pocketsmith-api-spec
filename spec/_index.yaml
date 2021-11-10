@@ -67,28 +67,28 @@ components:
       content:
         application/json:
           schema:
-            $ref: './schemas/_index.yaml#Error'
+            $ref: './schemas/Error.yaml'
 
     '403':
       description: Not Allowed
       content:
         application/json:
           schema:
-            $ref: './schemas/_index.yaml#Error'
+            $ref: './schemas/Error.yaml'
 
     '404':
       description: Not Found
       content:
         application/json:
           schema:
-            $ref: './schemas/_index.yaml#Error'
+            $ref: './schemas/Error.yaml'
 
     '422':
       description: Validation Error
       content:
         application/json:
           schema:
-            $ref: './schemas/_index.yaml#Error'
+            $ref: './schemas/Error.yaml'
 
   schemas:
     $ref: './schemas/_index.yaml'

@@ -1,4 +1,3 @@
-import sys
 from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
@@ -6,13 +5,22 @@ from pathlib import Path
 from typing import Dict, List, NamedTuple, Optional, Tuple, Union
 from urllib.parse import urlparse
 
-from ruamel.yaml import YAML
+from ruamel.yaml import RoundTripRepresenter, YAML
 from ruamel.yaml.comments import CommentedMap, CommentedSeq, CommentedSet
 
 CommentedContainer = Union[CommentedMap, CommentedSeq, CommentedSet]
 
+
+class NonAliasingRTRepresenter(RoundTripRepresenter):
+    def ignore_aliases(self, data):
+        return True
+
+
 yaml = YAML()
 yaml.indent(sequence=4, offset=2)
+
+# Disable automatic aliases/anchoring of reused/copied specs
+yaml.Representer = NonAliasingRTRepresenter
 
 script_dir = Path(__file__).parent
 spec_dir = script_dir / 'spec'
@@ -90,7 +98,7 @@ def merge_spec(root: Union[str, Path]) -> CommentedMap:
 
     for path, refs in unresolved_refs.items():
         for ref in refs:
-            print('Dereferencing', ref.loc, ref.fragment)
+            print('Dereferencing', ref.loc, ref.fragment, 'from', ref.absolute)
 
             try:
                 deref = resolved_refs[ref.absolute, ref.fragment]
@@ -133,4 +141,4 @@ def dump_spec(spec: CommentedMap, path: Path) -> None:
 if __name__ == '__main__':
     bundle = merge_spec(spec_root)
     dump_spec(bundle, out_path)
-    yaml.dump(bundle, sys.stdout)
+    # yaml.dump(bundle, sys.stdout)

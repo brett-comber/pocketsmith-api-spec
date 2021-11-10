@@ -75,7 +75,9 @@ properties:
     type: array
     # XXX (zkanzler): what's this for?
     description: 'UNKNOWN'
-    # TODO (zkanzler): declare array items schema
+    # TODO (zkanzler): declare array items schema with real info
+    items:
+      type: string
   backend_requires_consent:
     type: boolean
     # XXX (zkanzler): what's this for?

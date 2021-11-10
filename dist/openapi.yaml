@@ -67,24 +67,48 @@ components:
       content:
         application/json:
           schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: A message describing the error that occurred.
+                example: A message describing the error that occurred.
 
     '403':
       description: Not Allowed
       content:
         application/json:
           schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: A message describing the error that occurred.
+                example: A message describing the error that occurred.
 
     '404':
       description: Not Found
       content:
         application/json:
           schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: A message describing the error that occurred.
+                example: A message describing the error that occurred.
 
     '422':
       description: Validation Error
       content:
         application/json:
           schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: A message describing the error that occurred.
+                example: A message describing the error that occurred.
 
   schemas:
 
@@ -736,7 +760,9 @@ components:
           description: URL to provider's logo to override the default
         provider_notices:
           type: array # XXX (zkanzler): what's this for?
-          description: UNKNOWN # TODO (zkanzler): declare array items schema
+          description: UNKNOWN # TODO (zkanzler): declare array items schema with real info
+          items:
+            type: string
         backend_requires_consent:
           type: boolean # XXX (zkanzler): what's this for?
           description: UNKNOWN
