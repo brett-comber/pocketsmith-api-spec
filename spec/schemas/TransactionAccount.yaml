@@ -1,5 +1,9 @@
 type: object
 properties:
+  account_id:
+    type: integer
+    description: ID of the Account this transaction account is linked to.
+    example: 301030
   created_at:
     type: string
     format: date-time
@@ -16,6 +20,17 @@ properties:
     type: string
     format: date
     example: '2015-07-03'
+  data_feeds_account_id:
+    type: integer
+    description: ID of the linked Data Feeds Account
+    example: "9909"
+  data_feeds_balance_type:
+    type: string
+    example: "balance"
+  data_feeds_connection_id:
+    type: integer
+    description: ID of the linked Data Feeds Connection
+    example: "12467"
   id:
     type: integer
     example: 96027

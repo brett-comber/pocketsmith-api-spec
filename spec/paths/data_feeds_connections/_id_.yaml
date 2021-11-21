@@ -1,13 +1,13 @@
 get:
-  operationId: getDataConnection
-  summary: Retrieve the specified data connection (bank feed)
+  operationId: getDataFeedsConnection
+  summary: Retrieve the specified data feeds connection (bank feed)
   tags:
-    - Data Connections
+    - Data Feeds Connections
   parameters:
     - name: id
       in: path
       required: true
-      description: The unique identifier of the data connection.
+      description: The unique identifier of the data feeds connection.
       schema:
         type: integer
       example: 42
@@ -17,22 +17,22 @@ get:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DataConnection'
+            $ref: '#/components/schemas/DataFeedsConnection'
     '403':
       $ref: '#/components/responses/403'
     '404':
       $ref: '#/components/responses/404'
 
 put:
-  operationId: updateDataConnection
-  summary: Update the data connection, potentially to submit a form
+  operationId: updateDataFeedsConnection
+  summary: Update the data feeds connection, potentially to submit a form
   tags:
-    - Data Connections
+    - Data Feeds Connections
   parameters:
     - name: id
       in: path
       required: true
-      description: The unique identifier of the data connection.
+      description: The unique identifier of the data feeds connection.
       schema:
         type: integer
       example: 42
@@ -43,24 +43,24 @@ put:
           type: object
           properties:
             automatic_syncing:
-              $ref: '#/components/schemas/DataConnection/properties/automatic_syncing'
+              $ref: '#/components/schemas/DataFeedsConnection/properties/automatic_syncing'
             categorisation:
-              $ref: '#/components/schemas/DataConnection/properties/categorisation'
+              $ref: '#/components/schemas/DataFeedsConnection/properties/categorisation'
             name:
-              $ref: '#/components/schemas/DataConnection/properties/name'
+              $ref: '#/components/schemas/DataFeedsConnection/properties/name'
             pending_transactions:
-              $ref: '#/components/schemas/DataConnection/properties/pending_transactions'
+              $ref: '#/components/schemas/DataFeedsConnection/properties/pending_transactions'
             login_form:
-              $ref: '#/components/schemas/DataConnection/properties/login_form'
+              $ref: '#/components/schemas/DataFeedsConnection/properties/login_form'
             interactive_login_form:
-              $ref: '#/components/schemas/DataConnection/properties/interactive_login_form'
+              $ref: '#/components/schemas/DataFeedsConnection/properties/interactive_login_form'
   responses:
     '200':
       description: Success
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DataConnection'
+            $ref: '#/components/schemas/DataFeedsConnection'
     '403':
       $ref: '#/components/responses/403'
     '404':

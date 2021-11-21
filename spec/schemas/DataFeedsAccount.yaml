@@ -1,0 +1,100 @@
+type: object
+properties:  # TODO (zkanzler): fill out descriptions
+  account_number:
+    type: string
+    description: The account number, as listed from the provider
+    example: '34503754763'
+  account_type:
+    type: string
+    description: The container type of the account
+    enum:
+      - bank
+      - credit_card
+      - loan
+      - insurance
+      - investment
+    example: 'bank'
+  backend_data_updated_at:
+    type: string
+    format: date-time
+    example: '2021-11-07T07:27:58Z'
+  balance:
+    type: object
+    properties:
+      amount:
+        type: string
+        format: double
+        example: '1262.72'
+      amount_reversed:
+        type: string
+        format: double
+        example: '-1262.72'
+      currency:
+        type: string
+        example: 'USD'
+  amount:
+    type: string
+    format: double
+    example: '1262.72'
+  amount_reversed:
+    type: string
+    format: double
+    example: '-1262.72'
+  currency:
+    type: string
+    example: 'USD'
+  created_at:
+    type: string
+    format: date-time
+    example: '2021-11-05T07:54:42Z'
+  holdings_updated_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: '2021-11-05T07:54:42Z'
+  id:
+    type: integer
+    example: '104600'
+  memo:
+    type: string
+    nullable: true
+  name:
+    type: string
+    nullable: true
+    example: 'My Bank Account'
+  nickname:
+    type: string
+    nullable: true
+    example: 'My Totally Rad Bank Account'
+  status:
+    type: string
+    enum:
+      - ok
+      - degraded
+      - error
+      # XXX (zkanzler): any others?
+    example: 'ok'
+  sub_account_type:
+    type: string
+    enum:
+      - savings
+      - checking
+      - credit
+      - 401k
+      - individual
+      - mortgage
+      - auto_loan
+      - roth
+      - rollover
+      # XXX (zkanzler): what are the others? (those values are just ones I've encountered)
+    example: 'savings'
+  transactions_updated_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: '2021-11-07T07:28:10Z'
+  updated_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: '2021-11-07T07:28:10Z'

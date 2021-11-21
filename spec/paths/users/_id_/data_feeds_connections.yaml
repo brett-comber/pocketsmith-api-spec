@@ -1,8 +1,8 @@
 get:
-  operationId: listDataConnections
-  summary: List the data connections (bank feeds) of the user
+  operationId: listDataFeedsConnections
+  summary: List the data feeds connections (bank feeds) of the user
   tags:
-    - Data Connections
+    - Data Feeds Connections
   parameters:
     - name: id
       in: path
@@ -19,4 +19,4 @@ get:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/DataConnection'
+              $ref: '#/components/schemas/DataFeedsConnection'

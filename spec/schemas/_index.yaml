@@ -10,8 +10,10 @@ Category:
   $ref: ./Category.yaml
 CategoryRule:
   $ref: ./CategoryRule.yaml
-DataConnection:
-  $ref: ./DataConnection.yaml
+DataFeedsAccount:
+  $ref: ./DataFeedsAccount.yaml
+DataFeedsConnection:
+  $ref: ./DataFeedsConnection.yaml
 Error:
   $ref: ./Error.yaml
 Form:

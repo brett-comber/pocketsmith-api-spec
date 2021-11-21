@@ -372,7 +372,107 @@ components:
           description: When the category rule was last updated.
           example: '2019-07-09T10:06:02Z'
 
-    DataConnection:
+    DataFeedsAccount:
+      type: object
+      properties: # TODO (zkanzler): fill out descriptions
+        account_number:
+          type: string
+          description: The account number, as listed from the provider
+          example: '34503754763'
+        account_type:
+          type: string
+          description: The container type of the account
+          example: bank
+          enum:
+            - bank
+            - credit_card
+            - loan
+            - insurance
+            - investment
+        backend_data_updated_at:
+          type: string
+          format: date-time
+          example: '2021-11-07T07:27:58Z'
+        balance:
+          type: object
+          properties:
+            amount:
+              type: string
+              format: double
+              example: '1262.72'
+            amount_reversed:
+              type: string
+              format: double
+              example: '-1262.72'
+            currency:
+              type: string
+              example: USD
+        amount:
+          type: string
+          format: double
+          example: '1262.72'
+        amount_reversed:
+          type: string
+          format: double
+          example: '-1262.72'
+        currency:
+          type: string
+          example: USD
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-11-05T07:54:42Z'
+        holdings_updated_at:
+          type: string
+          format: date-time
+          example: '2021-11-05T07:54:42Z'
+          nullable: true
+        id:
+          type: integer
+          example: '104600'
+        memo:
+          type: string
+          nullable: true
+        name:
+          type: string
+          example: My Bank Account
+          nullable: true
+        nickname:
+          type: string
+          example: My Totally Rad Bank Account
+          nullable: true
+        status:
+          type: string
+          example: ok
+          enum:
+            - ok
+            - degraded
+            - error # XXX (zkanzler): any others?
+        sub_account_type:
+          type: string
+          example: savings
+          enum:
+            - savings
+            - checking
+            - credit
+            - 401k
+            - individual
+            - mortgage
+            - auto_loan
+            - roth
+            - rollover # XXX (zkanzler): what are the others? (those values are just ones I've encountered)
+        transactions_updated_at:
+          type: string
+          format: date-time
+          example: '2021-11-07T07:28:10Z'
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-11-07T07:28:10Z'
+          nullable: true
+
+    DataFeedsConnection:
       type: object
       properties:
         id:
@@ -937,6 +1037,10 @@ components:
     TransactionAccount:
       type: object
       properties:
+        account_id:
+          type: integer
+          description: ID of the Account this transaction account is linked to.
+          example: 301030
         created_at:
           type: string
           format: date-time
@@ -953,6 +1057,17 @@ components:
           type: string
           format: date
           example: '2015-07-03'
+        data_feeds_account_id:
+          type: integer
+          description: ID of the linked Data Feeds Account
+          example: '9909'
+        data_feeds_balance_type:
+          type: string
+          example: balance
+        data_feeds_connection_id:
+          type: integer
+          description: ID of the linked Data Feeds Connection
+          example: '12467'
         id:
           type: integer
           example: 96027
@@ -1467,15 +1582,15 @@ paths:
 
   /data_feeds_connections/{id}:
     get:
-      operationId: getDataConnection
-      summary: Retrieve the specified data connection (bank feed)
+      operationId: getDataFeedsConnection
+      summary: Retrieve the specified data feeds connection (bank feed)
       tags:
-        - Data Connections
+        - Data Feeds Connections
       parameters:
         - name: id
           in: path
           required: true
-          description: The unique identifier of the data connection.
+          description: The unique identifier of the data feeds connection.
           schema:
             type: integer
           example: 42
@@ -1485,22 +1600,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataConnection'
+                $ref: '#/components/schemas/DataFeedsConnection'
         '403':
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404' 
 
     put:
-      operationId: updateDataConnection
-      summary: Update the data connection, potentially to submit a form
+      operationId: updateDataFeedsConnection
+      summary: Update the data feeds connection, potentially to submit a form
       tags:
-        - Data Connections
+        - Data Feeds Connections
       parameters:
         - name: id
           in: path
           required: true
-          description: The unique identifier of the data connection.
+          description: The unique identifier of the data feeds connection.
           schema:
             type: integer
           example: 42
@@ -1511,24 +1626,24 @@ paths:
               type: object
               properties:
                 automatic_syncing:
-                  $ref: '#/components/schemas/DataConnection/properties/automatic_syncing'
+                  $ref: '#/components/schemas/DataFeedsConnection/properties/automatic_syncing'
                 categorisation:
-                  $ref: '#/components/schemas/DataConnection/properties/categorisation'
+                  $ref: '#/components/schemas/DataFeedsConnection/properties/categorisation'
                 name:
-                  $ref: '#/components/schemas/DataConnection/properties/name'
+                  $ref: '#/components/schemas/DataFeedsConnection/properties/name'
                 pending_transactions:
-                  $ref: '#/components/schemas/DataConnection/properties/pending_transactions'
+                  $ref: '#/components/schemas/DataFeedsConnection/properties/pending_transactions'
                 login_form:
-                  $ref: '#/components/schemas/DataConnection/properties/login_form'
+                  $ref: '#/components/schemas/DataFeedsConnection/properties/login_form'
                 interactive_login_form:
-                  $ref: '#/components/schemas/DataConnection/properties/interactive_login_form'
+                  $ref: '#/components/schemas/DataFeedsConnection/properties/interactive_login_form'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataConnection'
+                $ref: '#/components/schemas/DataFeedsConnection'
         '403':
           $ref: '#/components/responses/403'
         '404':
@@ -1538,16 +1653,16 @@ paths:
 
   /data_feeds_connections/{id}/data_feeds_accounts:
     get:
-      operationId: getDataConnectionAccounts
-      summary: Get the accounts associated with the specified data connections (bank
-        feeds)
+      operationId: getDataFeedsAccounts
+      summary: Get the data feeds accounts associated with the specified data feeds
+        connection (bank feeds)
       tags:
-        - Data Connections
+        - Data Feeds Accounts
       parameters:
         - name: id
           in: path
           required: true
-          description: The unique identifier of the data connection.
+          description: The unique identifier of the data feeds connection.
           schema:
             type: integer
           example: 42
@@ -1559,7 +1674,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Account'
+                  $ref: '#/components/schemas/DataFeedsAccount'
         '403':
           $ref: '#/components/responses/403'
         '404':
@@ -2614,10 +2729,10 @@ paths:
 
   /users/{id}/data_feeds_connections:
     get:
-      operationId: listDataConnections
-      summary: List the data connections (bank feeds) of the user
+      operationId: listDataFeedsConnections
+      summary: List the data feeds connections (bank feeds) of the user
       tags:
-        - Data Connections
+        - Data Feeds Connections
       parameters:
         - name: id
           in: path
@@ -2634,7 +2749,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DataConnection'
+                  $ref: '#/components/schemas/DataFeedsConnection'
 
   /users/{id}/institutions:
     post:
