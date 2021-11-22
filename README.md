@@ -59,7 +59,7 @@ poetry install
 
 Finally, bundle the spec with
 ```shell
-python bundle_spec.py
+poetry run python bundle_spec.py
 ```
 
 This will dereference any file-based `$ref` values, and plonk the bundled spec into `dist/openapi.yaml`.
@@ -69,7 +69,7 @@ In addition to bundling the split spec, some formatting is also applied to the r
 
 To format the spec, first ensure the dependencies have been installed (per the Bundling section), then run:
 ```shell
-python format_spec.py
+poetry run python format_spec.py
 ```
 
 This will format `dist/openapi.yaml` in-place.
