@@ -85,7 +85,7 @@ Since this manicured spec has now diverged a bit from the official spec, I've st
 If this is your first time contributing, please add yourself to the `authors` list in `pyproject.toml`! Get some street cred, yo!
 
 ## Versioning
-At the moment, this manicured spec is all over the place in terms of stability. As such, I hesitate to use version numbers over 1.0.0. However, I instead use [semantic versioning](https://semver.org/) with a leading `0.` — as in `0.MAJOR.MINOR.PATCH`.
+Though this manicured spec is all over the place in terms of stability, I'm choosing to abide by [semantic versioning](https://semver.org/) from here on out. That is, the modifications to this off-brand spec will take on versions of the form `MAJOR.MINOR.PATCH`. The version specified in the spec itself (`info.version`) will be in the form `<UPSTREAM_VERSION>+<OUR_VERSION>`
 
 Breaking changes should increment `MAJOR`, non-breaking additions should increment `MINOR`, and fixes should increment `PATCH`.
 
