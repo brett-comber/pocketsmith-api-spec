@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+### Fixed
+ - Remove intra-spec `$ref` directives in endpoint properties, as these cause issues with generated API clients
 
 
 ## [0.3.1] — 2021-11-22
