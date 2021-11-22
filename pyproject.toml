@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pocketsmith-api-spec"
-version = "0.3.1"
+version = "0.3.2"
 description = ""
 authors = [
     'Zach "theY4Kman" Kanzler <they4kman@gmail.com>',
