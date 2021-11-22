@@ -9,14 +9,20 @@ properties:
     nullable: true
     description: User-defined nickname for the data connection
   status:
-    type: string
     description: Sync/auth status of the data connection
-    enum:
-      - synced
-      - unsynced
-      - unauthorised
-      - authorisation_failed
-      # XXX (zkanzler): am I missing any others?
+    anyOf:
+      - type: string
+        enum:  # XXX (zkanzler): am I missing any others?
+          - unauthorised
+          - authorisation_failed
+          - user_interaction_authorisation_failed
+          - error
+          - unsynced
+          - syncing
+          - synced
+          - awaiting_data_pull
+          - pulling_data
+      - type: string  # NB (zkanzler): this allows other strings not defined in enum
   status_changed_at:
     type: string
     format: date-time

@@ -442,25 +442,29 @@ components:
           example: My Totally Rad Bank Account
           nullable: true
         status:
-          type: string
           example: ok
-          enum:
-            - ok
-            - degraded
-            - error # XXX (zkanzler): any others?
+          anyOf:
+            - type: string
+              enum: # XXX (zkanzler): any others?
+                - ok
+                - degraded
+                - error
+            - type: string # NB (zkanzler): this allows other strings not defined in enum
         sub_account_type:
-          type: string
           example: savings
-          enum:
-            - savings
-            - checking
-            - credit
-            - 401k
-            - individual
-            - mortgage
-            - auto_loan
-            - roth
-            - rollover # XXX (zkanzler): what are the others? (those values are just ones I've encountered)
+          anyOf:
+            - type: string
+              enum: # XXX (zkanzler): what are the others? (those values are just ones I've encountered)
+                - savings
+                - checking
+                - credit
+                - 401k
+                - individual
+                - mortgage
+                - auto_loan
+                - roth
+                - rollover
+            - type: string # NB (zkanzler): this allows other strings not defined in enum
         transactions_updated_at:
           type: string
           format: date-time
@@ -484,13 +488,20 @@ components:
           description: User-defined nickname for the data connection
           nullable: true
         status:
-          type: string
           description: Sync/auth status of the data connection
-          enum:
-            - synced
-            - unsynced
-            - unauthorised
-            - authorisation_failed # XXX (zkanzler): am I missing any others?
+          anyOf:
+            - type: string
+              enum: # XXX (zkanzler): am I missing any others?
+                - unauthorised
+                - authorisation_failed
+                - user_interaction_authorisation_failed
+                - error
+                - unsynced
+                - syncing
+                - synced
+                - awaiting_data_pull
+                - pulling_data
+            - type: string # NB (zkanzler): this allows other strings not defined in enum
         status_changed_at:
           type: string
           format: date-time

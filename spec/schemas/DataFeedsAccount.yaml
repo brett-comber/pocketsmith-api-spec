@@ -67,26 +67,28 @@ properties:  # TODO (zkanzler): fill out descriptions
     nullable: true
     example: 'My Totally Rad Bank Account'
   status:
-    type: string
-    enum:
-      - ok
-      - degraded
-      - error
-      # XXX (zkanzler): any others?
+    anyOf:
+      - type: string
+        enum:  # XXX (zkanzler): any others?
+          - ok
+          - degraded
+          - error
+      - type: string  # NB (zkanzler): this allows other strings not defined in enum
     example: 'ok'
   sub_account_type:
-    type: string
-    enum:
-      - savings
-      - checking
-      - credit
-      - 401k
-      - individual
-      - mortgage
-      - auto_loan
-      - roth
-      - rollover
-      # XXX (zkanzler): what are the others? (those values are just ones I've encountered)
+    anyOf:
+      - type: string
+        enum:  # XXX (zkanzler): what are the others? (those values are just ones I've encountered)
+          - savings
+          - checking
+          - credit
+          - 401k
+          - individual
+          - mortgage
+          - auto_loan
+          - roth
+          - rollover
+      - type: string  # NB (zkanzler): this allows other strings not defined in enum
     example: 'savings'
   transactions_updated_at:
     type: string
