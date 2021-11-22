@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
+ - Fix validation errors in `DataFeedsConnection` schemas with generated API clients
  - Remove intra-spec `$ref` directives in endpoint properties, as these cause issues with generated API clients
 
 

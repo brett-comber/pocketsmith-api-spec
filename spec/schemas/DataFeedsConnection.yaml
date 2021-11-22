@@ -26,9 +26,11 @@ properties:
   status_changed_at:
     type: string
     format: date-time
+    nullable: true
     description: When the data connection's status last changed
   status_changed_at_hash:
     type: string
+    nullable: true
     description: MD5 hash of the status_changed_at field
   error_detail:
     type: string
@@ -104,7 +106,6 @@ properties:
     properties:
       id:
         type: string
-        format: integer
       email:
         type: string
         format: email

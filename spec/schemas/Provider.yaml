@@ -56,18 +56,22 @@ properties:
   home_url:
     type: string
     format: url
+    nullable: true
     description: Link to homepage of provider
   login_url:
     type: string
     format: url
+    nullable: true
     description: Link to login page of provider
   default_logo_url:
     type: string
     format: url
+    nullable: true
     description: Default URL to provider's logo
   custom_logo_url:
     type: string
     format: url
+    nullable: true
     # XXX (zkanzler): who provides this URL?
     description: URL to provider's logo to override the default
   provider_notices:
@@ -76,7 +80,22 @@ properties:
     description: 'UNKNOWN'
     # TODO (zkanzler): declare array items schema with real info
     items:
-      type: string
+      type: object
+      properties:
+        id:
+          type: string
+        severity:
+          type: string
+        message_markdown:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
   backend_requires_consent:
     type: boolean
     # XXX (zkanzler): what's this for?
