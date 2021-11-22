@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 from collections import OrderedDict
 from pathlib import Path
