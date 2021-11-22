@@ -55,11 +55,11 @@ class Reference:
 
     @cached_property
     def absolute(self) -> Path:
-        return (self.working_dir / self.loc).absolute()
+        return (self.working_dir / self.loc).resolve()
 
     @cached_property
-    def fragment_path(self) -> Tuple[str, ...]:
-        return tuple(self.fragment.lstrip('/').split('/'))
+    def fragment_path(self) -> List[str]:
+        return self.fragment.lstrip('/').split('/')
 
 
 def merge_spec(root: Union[str, Path]) -> CommentedMap:
