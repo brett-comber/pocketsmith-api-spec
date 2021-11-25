@@ -1,7 +1,9 @@
 type: object
 properties:
   id:
-    type: string
+    oneOf:
+      - type: integer
+      - type: string
     description: The unique identifier of the data connection
     example: "42"
   name:

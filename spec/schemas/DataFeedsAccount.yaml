@@ -53,7 +53,9 @@ properties:  # TODO (zkanzler): fill out descriptions
     nullable: true
     example: '2021-11-05T07:54:42Z'
   id:
-    type: integer
+    oneOf:
+      - type: integer
+      - type: string
     example: '104600'
   memo:
     type: string

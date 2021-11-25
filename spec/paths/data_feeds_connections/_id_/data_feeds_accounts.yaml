@@ -9,7 +9,9 @@ get:
       required: true
       description: The unique identifier of the data feeds connection.
       schema:
-        type: integer
+        oneOf:
+          - type: integer
+          - type: string
       example: 42
   responses:
     '200':

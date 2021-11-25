@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [0.3.3] — 2021-11-25
+### Fixed
+ - Allow Data Feeds Connection/Account/Provider IDs to be strings or integers (addresses validation errors in generated API clients)
+
+
 ## [0.3.2] — 2021-11-22
 ### Fixed
  - Fix validation errors in `DataFeedsConnection` schemas with generated API clients
