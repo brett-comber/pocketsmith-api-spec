@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Unreleased]
+
+
+## [0.3.4] — 2022-01-25
 ### Fixed
  - Resolved various nullable fields not being marked nullable (addressing further validation errors in strict generated API clients)
 
