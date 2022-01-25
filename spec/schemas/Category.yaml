@@ -7,6 +7,7 @@ properties:
       $ref: '#/components/schemas/Category'
   colour:
     type: string
+    nullable: true
     format: CSS-style hex triplet
     description: The colour for the category.
     example: '#00ff00'
@@ -20,15 +21,29 @@ properties:
     type: integer
     description: The unique identifier of the category.
     example: 1438154
+  is_bill:
+    type: boolean
+    description: Whether this category has been marked as a bill category.
+    example: false
   is_transfer:
     type: boolean
+    nullable: true
     description: Whether this category has been marked as a transfer category.
     example: false
   parent_id:
     type: integer
+    nullable: true
     description: The unique identifier of the parent category of this category,
       or null if this category has no parent (i.e. is a top-level category)
     example: 42
+  refund_behaviour:
+    type: string
+    nullable: true
+    description: '???'
+  roll_up:
+    type: boolean
+    nullable: true
+    description: '???'
   title:
     type: string
     description: The title of the category.

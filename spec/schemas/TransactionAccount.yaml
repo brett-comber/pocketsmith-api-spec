@@ -21,14 +21,18 @@ properties:
     format: date
     example: '2015-07-03'
   data_feeds_account_id:
-    type: integer
+    oneOf:
+      - type: integer
+      - type: string
     description: ID of the linked Data Feeds Account
     example: "9909"
   data_feeds_balance_type:
     type: string
     example: "balance"
   data_feeds_connection_id:
-    type: integer
+    oneOf:
+      - type: integer
+      - type: string
     description: ID of the linked Data Feeds Connection
     example: "12467"
   id:
@@ -41,6 +45,7 @@ properties:
     example: Sample Credit
   number:
     type: string
+    nullable: true
     example: ASBCRD44554
   starting_balance:
     type: number

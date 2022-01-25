@@ -4,9 +4,12 @@ properties:
     type: number
     example: 34.6
   category:
-    $ref: '#/components/schemas/Category'
+    oneOf:
+      - nullable: true
+      - $ref: '#/components/schemas/Category'
   cheque_number:
     type: string
+    nullable: true
     example: '503113643691'
   closing_balance:
     type: number
@@ -23,6 +26,7 @@ properties:
     example: 42
   is_transfer:
     type: boolean
+    nullable: true
     description: Whether the transaction was a transfer.
     example: false
   labels:
@@ -35,9 +39,11 @@ properties:
       type: string
   memo:
     type: string
+    nullable: true
     example: An example memo
   note:
     type: string
+    nullable: true
     example: I spent way too much on cheese here
   original_payee:
     type: string
@@ -66,4 +72,4 @@ properties:
   upload_source:
     type: string
     description: Where the transaction came from.
-    example: file
+    example: data_feed

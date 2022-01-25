@@ -319,6 +319,7 @@ components:
           format: CSS-style hex triplet
           description: The colour for the category.
           example: '#00ff00'
+          nullable: true
           pattern: ^#[0-9a-fA-F]{6}
         created_at:
           type: string
@@ -329,15 +330,29 @@ components:
           type: integer
           description: The unique identifier of the category.
           example: 1438154
+        is_bill:
+          type: boolean
+          description: Whether this category has been marked as a bill category.
+          example: false
         is_transfer:
           type: boolean
           description: Whether this category has been marked as a transfer category.
           example: false
+          nullable: true
         parent_id:
           type: integer
           description: The unique identifier of the parent category of this category,
             or null if this category has no parent (i.e. is a top-level category)
           example: 42
+          nullable: true
+        refund_behaviour:
+          type: string
+          description: ???
+          nullable: true
+        roll_up:
+          type: boolean
+          description: ???
+          nullable: true
         title:
           type: string
           description: The title of the category.
@@ -926,15 +941,18 @@ components:
         achieve_date:
           type: string
           description: For goals, the date that they should be achieved by.
+          nullable: true
         closing_balance:
           type: number
           description: The closing balance of the scenario.
           example: 5431.2
+          nullable: true
         closing_balance_date:
           type: string
           format: date
           description: The date of the closing balance.
           example: '2018-02-27'
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -952,6 +970,7 @@ components:
         description:
           type: string
           description: A short description of what the scenario is modelling.
+          nullable: true
         id:
           type: integer
           description: The unique identifier of the scenario.
@@ -970,13 +989,16 @@ components:
         maximum-value:
           type: number
           example: 42
+          nullable: true
         minimum-value:
           type: number
           example: 4000
+          nullable: true
         starting_balance:
           type: number
           description: The starting balance of the scenario.
           example: 2450
+          nullable: true
         starting_balance_date:
           type: string
           format: date
@@ -1007,10 +1029,13 @@ components:
           type: number
           example: 34.6
         category:
-          $ref: '#/components/schemas/Category'
+          oneOf:
+            - nullable: true
+            - $ref: '#/components/schemas/Category'
         cheque_number:
           type: string
           example: '503113643691'
+          nullable: true
         closing_balance:
           type: number
           description: The closing balance of the account at the transaction.
@@ -1028,6 +1053,7 @@ components:
           type: boolean
           description: Whether the transaction was a transfer.
           example: false
+          nullable: true
         labels:
           type: array
           example:
@@ -1039,9 +1065,11 @@ components:
         memo:
           type: string
           example: An example memo
+          nullable: true
         note:
           type: string
           example: I spent way too much on cheese here
+          nullable: true
         original_payee:
           type: string
           description: The payee the transaction was created with.
@@ -1069,7 +1097,7 @@ components:
         upload_source:
           type: string
           description: Where the transaction came from.
-          example: file
+          example: data_feed
 
     TransactionAccount:
       type: object
@@ -1095,16 +1123,20 @@ components:
           format: date
           example: '2015-07-03'
         data_feeds_account_id:
-          type: integer
           description: ID of the linked Data Feeds Account
           example: '9909'
+          oneOf:
+            - type: integer
+            - type: string
         data_feeds_balance_type:
           type: string
           example: balance
         data_feeds_connection_id:
-          type: integer
           description: ID of the linked Data Feeds Connection
           example: '12467'
+          oneOf:
+            - type: integer
+            - type: string
         id:
           type: integer
           example: 96027
@@ -1116,6 +1148,7 @@ components:
         number:
           type: string
           example: ASBCRD44554
+          nullable: true
         starting_balance:
           type: number
           example: 3547.45

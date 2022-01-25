@@ -2,13 +2,16 @@ type: object
 properties:
   achieve_date:
     type: string
+    nullable: true
     description: For goals, the date that they should be achieved by.
   closing_balance:
     type: number
+    nullable: true
     description: The closing balance of the scenario.
     example: 5431.2
   closing_balance_date:
     type: string
+    nullable: true
     format: date
     description: The date of the closing balance.
     example: '2018-02-27'
@@ -28,6 +31,7 @@ properties:
     example: '2018-02-27'
   description:
     type: string
+    nullable: true
     description: A short description of what the scenario is modelling.
   id:
     type: integer
@@ -46,12 +50,15 @@ properties:
     example: 4
   maximum-value:
     type: number
+    nullable: true
     example: 42
   minimum-value:
     type: number
+    nullable: true
     example: 4000
   starting_balance:
     type: number
+    nullable: true
     description: The starting balance of the scenario.
     example: 2450
   starting_balance_date:
